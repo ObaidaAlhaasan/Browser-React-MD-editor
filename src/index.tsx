@@ -42,31 +42,6 @@ const App = () => {
         setCode(result.outputFiles[0].text);
     }
 
-    const htmlCode = `
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    
-    <body>
-        <div id="root"></div>
-        <script>
-            window.addEventListener("message", (evt) => {
-                try {
-                    eval(evt.data)
-                } catch (error) {
-                    const root = document.querySelector("#root");
-                    root.innerHTML = '<div style="color: red;"> <h4> Runtime Error:  </h4>' + error + '</div>';
-                    console.error(error);
-                }
-            }, false)
-        </script>
-    </body>
-    
-    </html>`;
-
     return <div>
         <CodeEditor initialValue={`import React from 'react';
 import ReactDom from 'react-dom';
