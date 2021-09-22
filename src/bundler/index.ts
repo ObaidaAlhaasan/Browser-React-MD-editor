@@ -1,5 +1,5 @@
-import { fetchPlugin } from '../plugins/fetch';
-import { unpkgPathPlugin } from '../plugins/unpkgPathPlugin';
+import { fetchPlugin } from './plugins/fetch';
+import { unpkgPathPlugin } from './plugins/unpkgPathPlugin';
 import * as esBuild from 'esbuild-wasm'
 
 let service: esBuild.Service;

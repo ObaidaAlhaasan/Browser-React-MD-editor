@@ -18,12 +18,11 @@ const App = () => {
         <CodeEditor initialValue={`import React from 'react';
 import ReactDom from 'react-dom';
 
-const App = () => <h1 style={{color:"red"}}> Hi There </h1>;
+const App = () => <h1 style={{color:"red"}}> Hi There !!!!!! </h1>;
 
 const root = document.querySelector('#root');
 console.log(root);
-ReactDom.render(<App />, document.querySelector('#root'));
-alert('HI');`}
+ReactDom.render(<App />, document.querySelector('#root'));`}
             onChange={(value: string) => console.log(setInput(value))} />
         <div className=""><button onClick={onclick}>Submit</button></div>
         <Preview code={code} />
