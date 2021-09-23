@@ -31,13 +31,13 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
             window.monaco,
             codeShift,
             monacoEditor
-          );
-          highlighter.highLightOnDidChangeModelContent(
-            () => {},
-            () => {},
+        );
+        highlighter.highLightOnDidChangeModelContent(
+            () => { },
+            () => { },
             undefined,
-            () => {}
-          );
+            () => { }
+        );
     };
 
     const onFormat = () => {
@@ -50,9 +50,10 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
     return <div className="editor-wrapper">
         <button onClick={onFormat} className="button button-format is-primary is-small">Format</button>
         <MonacoEditor
-            height="400px" language="javascript" theme="dark"
+            height="100%" language="javascript" theme="dark"
             value={initialValue}
             editorDidMount={onEditorDidMount}
+            width={"60vw"}
             options={{
                 wordWrap: 'on',
                 minimap: { enabled: false },
