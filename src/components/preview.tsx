@@ -2,9 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import './preview.css';
 interface IPreviewProps {
     code: string;
+    bundleStatus: string;
 }
 
-const Preview: React.FC<IPreviewProps> = ({ code }) => {
+const Preview: React.FC<IPreviewProps> = ({ code, bundleStatus }) => {
     const iframeRef = useRef<any>();
 
     useEffect(() => {
@@ -19,13 +20,22 @@ const Preview: React.FC<IPreviewProps> = ({ code }) => {
         <body>
             <div id="root"></div>
             <script>
+                const errHandler = (error)=>{
+                    const root = document.querySelector("#root");
+                    root.innerHTML = '<div style="color: red;"> <h4> Runtime Error:  </h4>' + error + '</div>';
+                    console.error(error);
+                }
+                window.addEventListener("error", (evt)=> {
+                    console.log(evt);
+                    evt.preventDefault();
+                    errHandler(evt.error);
+                });
+
                 window.addEventListener("message", (evt) => {
                     try {
                         eval(evt.data)
                     } catch (error) {
-                        const root = document.querySelector("#root");
-                        root.innerHTML = '<div style="color: red;"> <h4> Runtime Error:  </h4>' + error + '</div>';
-                        console.error(error);
+                        errHandler(error);
                     }
                 }, false)
             </script>
@@ -41,7 +51,8 @@ const Preview: React.FC<IPreviewProps> = ({ code }) => {
 
     return (
         <div className="preview-wrapper">
-            <iframe ref={iframeRef} title="Preview" sandbox="allow-modals allow-forms allow-popups allow-scripts" style={{ backgroundColor: '#fff'}} />
+            <iframe ref={iframeRef} title="Preview" sandbox="allow-modals allow-forms allow-popups allow-scripts" style={{ backgroundColor: '#fff' }} />
+            {bundleStatus && <div className="bundle-status-error"> <h6>Bundling Error:</h6> {bundleStatus} </div>}
         </div>
     )
 }

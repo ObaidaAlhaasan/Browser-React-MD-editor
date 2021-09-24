@@ -15,10 +15,17 @@ ReactDom.render(<App />, document.querySelector('#root'));`;
 const CodeCell = () => {
     const [input, setInput] = useState<string>('');
     const [code, setCode] = useState<string>('');
+    const [err, setErr] = useState('')
 
     useEffect(() => {
         const timer = setTimeout(async () => {
-            setCode(await bundler(input));
+            const output = await bundler(input);
+            if (output.err) {
+                setErr(output.err);
+                return;
+            }
+
+            setCode(output.code);
         }, 1000);
 
         return () => {
@@ -31,7 +38,7 @@ const CodeCell = () => {
             <Resizable direction={ResizableDirection.horizontal}><CodeEditor
                 initialValue={initialCode}
                 onChange={(value) => setInput(value)} /></Resizable>
-            <Preview code={code} />
+            <Preview code={code} bundleStatus={err} />
         </div>
     </Resizable>
 }
