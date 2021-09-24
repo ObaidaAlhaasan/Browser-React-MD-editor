@@ -10,7 +10,6 @@ import ReactDom from 'react-dom';
 const App = () => <h1 style={{color:"red"}}> Hi There !!!!!! </h1>;
 
 const root = document.querySelector('#root');
-console.log(root);
 ReactDom.render(<App />, document.querySelector('#root'));`;
 
 const CodeCell = () => {
@@ -22,9 +21,10 @@ const CodeCell = () => {
     }
 
     return <Resizable direction={ResizableDirection.vertical}>
-        <div style={{ display: 'flex', height: '100%', flexDirection: 'row' }}>
-            <CodeEditor initialValue={initialCode} onChange={(value: string) => setInput(value)} />
-
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
+            <Resizable direction={ResizableDirection.horizontal}><CodeEditor
+                initialValue={initialCode}
+                onChange={(value) => setInput(value)} /></Resizable>
             <Preview code={code} />
         </div>
     </Resizable>

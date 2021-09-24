@@ -7,7 +7,6 @@ interface IPreviewProps {
 const Preview: React.FC<IPreviewProps> = ({ code }) => {
     const iframeRef = useRef<any>();
 
-
     useEffect(() => {
         const htmlCode = `
         <html lang="en">
@@ -39,7 +38,7 @@ const Preview: React.FC<IPreviewProps> = ({ code }) => {
 
     return (
         <div className="preview-wrapper">
-            <iframe ref={iframeRef} title="Preview" sandbox="allow-modals allow-forms allow-popups allow-scripts" style={{ backgroundColor: '#fff', width: '40vw' }} />
+            <iframe ref={iframeRef} title="Preview" sandbox="allow-modals allow-forms allow-popups allow-scripts" style={{ backgroundColor: '#fff'}} />
         </div>
     )
 }
