@@ -33,7 +33,10 @@ const Preview: React.FC<IPreviewProps> = ({ code }) => {
         
         </html>`;
         iframeRef.current.srcdoc = htmlCode;
-        iframeRef.current?.contentWindow?.postMessage(code, '*');
+        // so iframe has enough time to listens for events/msgs
+        setTimeout(() => {
+            iframeRef.current?.contentWindow?.postMessage(code, '*');
+        }, 200);
     }, [code]);
 
     return (
