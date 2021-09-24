@@ -3,6 +3,7 @@ import MDEditor from '@uiw/react-md-editor';
 import "./text-editor.css";
 const TextEditor: React.FC = () => {
     const [isEditing, setIsEditing] = useState(false);
+    const [value, setValue] = useState<string>("# Header!");
     const ref = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -18,14 +19,14 @@ const TextEditor: React.FC = () => {
 
     }, []);
 
-    if (isEditing) return <div className="text-editor" ref={ref}><MDEditor /></div>
+    if (isEditing) return <div className="text-editor" ref={ref}><MDEditor onChange={(v) => setValue(v ?? "")} /></div>
 
     return (
-        <div className="text-editor" onClick={(e) => {
+        <div className="text-editor card" onClick={(e) => {
             e.preventDefault();
             setIsEditing(true);
         }}>
-            <MDEditor.Markdown source="# Hello There" />
+            <div className="card-content"><MDEditor.Markdown source={value} /></div>
         </div>
     )
 }
