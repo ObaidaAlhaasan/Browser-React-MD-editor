@@ -1,1 +1,1 @@
-export const D = {};
+export default 1;

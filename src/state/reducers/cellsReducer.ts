@@ -4,7 +4,7 @@ import { Cell } from "../cell";
 import produce from 'immer';
 import { generateRandomId } from "../../utils/utils";
 
-interface CellState {
+export interface CellState {
     loading: boolean;
     error: string | null;
     order: string[];
