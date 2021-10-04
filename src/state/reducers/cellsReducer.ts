@@ -57,6 +57,6 @@ const reducer = produce((state: CellState = initialState, action: Action): CellS
         default:
             return state;
     }
-});
+}, initialState);
 
 export default reducer;
