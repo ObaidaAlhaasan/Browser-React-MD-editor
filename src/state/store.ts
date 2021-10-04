@@ -15,7 +15,7 @@ export const store = createStore(
     ),
 );
 
-store.dispatch({ type: ActionType.INSERT_CELL_BEFORE, payload: { id: '', type: CellType.Code } });
-store.dispatch({ type: ActionType.INSERT_CELL_BEFORE, payload: { id: '', type: CellType.Text } });
-store.dispatch({ type: ActionType.INSERT_CELL_BEFORE, payload: { id: '', type: CellType.Text } });
-store.dispatch({ type: ActionType.INSERT_CELL_BEFORE, payload: { id: '', type: CellType.Code } });
+store.dispatch({ type: ActionType.INSERT_CELL_AFTER, payload: { id: '', type: CellType.Code } });
+store.dispatch({ type: ActionType.INSERT_CELL_AFTER, payload: { id: '', type: CellType.Text } });
+store.dispatch({ type: ActionType.INSERT_CELL_AFTER, payload: { id: '', type: CellType.Text } });
+store.dispatch({ type: ActionType.INSERT_CELL_AFTER, payload: { id: '', type: CellType.Code } });
