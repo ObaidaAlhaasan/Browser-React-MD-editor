@@ -1,3 +1,5 @@
-export default () => {
-    console.log("Server started and listening !!!");
+export const serve = (port: number, fileName: string, dir: string) => {
+    console.log(port);
+    console.log(fileName);
+    console.log(dir);
 }
