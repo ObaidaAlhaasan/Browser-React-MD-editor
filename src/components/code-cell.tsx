@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import CodeEditor from './code-editor'
 import Preview from './preview';
 import Resizable, { ResizableDirection } from './resizable';
-import { Cell } from '../state';
+import { Cell, CellType } from '../state';
 import useActions from '../hooks/use-actions';
 import { useTypedSelector } from '../hooks/use-typed-selector';
 import './code-cell.css';
+import { useCumulativeCode } from '../hooks/use-cumulative-code';
 
 const initialCode = `import React from 'react';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom';
 
 const App = () => <h1 style={{color:"red"}}> Hi There !!!!!! </h1>;
 
@@ -19,25 +20,25 @@ interface CodeCellProps {
 }
 
 const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
-
     const { updateCell, createBundle } = useActions();
     const bundle = useTypedSelector((state) => state.bundles[cell.id]);
+    const cumulativeCode = useCumulativeCode(cell.id);
 
     useEffect(() => {
         if (!bundle) {
-            createBundle({ cellId: cell.id, input: cell.content });
+            createBundle({ cellId: cell.id, input: cumulativeCode.join("\n") });
             return;
         }
 
         const timer = setTimeout(async () => {
-            await createBundle({ cellId: cell.id, input: cell.content });
+            await createBundle({ cellId: cell.id, input: cumulativeCode.join("\n") });
         }, 1000);
 
         return () => {
             clearTimeout(timer);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [cell.id, cell.content, createBundle]);
+    }, [cell.id, cumulativeCode.join("\n"), createBundle]);
 
     return <Resizable direction={ResizableDirection.vertical}>
         <div style={{ height: 'calc(100% - 100px)', display: 'flex', flexDirection: 'row' }}>

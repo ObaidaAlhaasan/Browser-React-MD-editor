@@ -20,7 +20,9 @@ const bundler = async (rawCode: string) => {
             define: {
                 'process.env.NODE_ENV': '"produciton"',
                 global: 'window'
-            }
+            },
+            jsxFactory: '_React.createElement',
+            jsxFragment:'_React.Fragment'
         });
         return { code: result.outputFiles[0].text, err: '' };
 
