@@ -16,7 +16,7 @@ export const serve = (port: number, fileName: string, dir: string, useProxy: boo
         }));
 
     } else {
-        const pkgPath = require.resolve("local-client/build/index.html");
+        const pkgPath = require.resolve("@s616/local-client/build/index.html");
         app.use(express.static(path.dirname(pkgPath)));
     }
 

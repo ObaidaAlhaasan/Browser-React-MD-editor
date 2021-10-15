@@ -1,5 +1,5 @@
 {
-  "name": "cli",
+  "name": "s616-note",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^8.2.0",
-    "local-api": "^1.0.0"
+    "@s616/local-api": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^16.10.3",

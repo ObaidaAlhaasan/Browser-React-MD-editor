@@ -1,5 +1,5 @@
 {
-  "name": "local-api",
+  "name": "@s616/local-api",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -20,6 +20,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "http-proxy-middleware": "^2.0.1",
-    "local-client": "^0.1.0"
+    "@s616/local-client": "^0.1.0"
   }
 }
