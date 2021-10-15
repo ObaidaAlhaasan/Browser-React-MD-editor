@@ -1,6 +1,6 @@
 {
   "name": "@s616/local-api",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -27,5 +27,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "http-proxy-middleware": "^2.0.1"
-  }
+  },
+  "gitHead": "05fd153607a41805cfe10f5f6b33b6b29c9bfbed"
 }

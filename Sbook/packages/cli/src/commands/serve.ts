@@ -13,7 +13,7 @@ const ServeCommand = new Command()
 
         try {
             await serve(options.port, path.basename(fileName), dir, !isProduction);
-            console.log(`Opened ${fileName}. Navigate to http://localhost:${options.port} to edit the file.`);
+            console.log(`Opened ${fileName} Navigate to http://localhost:${options.port} to edit the file.`);
 
         } catch (e) {
             if (e.code === "EADDRINUSE")
