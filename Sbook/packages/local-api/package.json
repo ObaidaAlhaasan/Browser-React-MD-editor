@@ -1,6 +1,6 @@
 {
   "name": "@s616/local-api",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -23,9 +23,9 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
+    "@s616/local-client": "^0.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "http-proxy-middleware": "^2.0.1",
-    "@s616/local-client": "^0.1.0"
+    "http-proxy-middleware": "^2.0.1"
   }
 }
