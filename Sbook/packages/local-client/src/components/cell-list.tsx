@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import useActions from '../hooks/use-actions';
 import { useTypedSelector } from '../hooks/use-typed-selector'
 import AddCell from './add-cell';
 import CellListItem from './cell-list-item';
@@ -9,6 +10,12 @@ interface CellListProps {
 
 const CellList: React.FC<CellListProps> = () => {
     const cells = useTypedSelector(({ cells }) => cells?.order.map(id => cells.data[id]));
+
+    const { fetchCells } = useActions();
+
+    useEffect(() => {
+        fetchCells();
+    }, []);
 
     const renderedCells = cells?.map(cell =>
         <React.Fragment key={cell.id}>

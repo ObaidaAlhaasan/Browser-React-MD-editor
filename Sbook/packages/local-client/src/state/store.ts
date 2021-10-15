@@ -3,19 +3,13 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import * as actionCreators from './action-creators';
-import { ActionType } from './action-types';
-import { CellType } from './cell';
+import { persistMiddlware } from './middlewares/persist-middleware';
 
 const composeEnhancers = composeWithDevTools({ actionCreators });
 
 export const store = createStore(
     reducers,
     composeEnhancers(
-        applyMiddleware(thunk),
+        applyMiddleware(persistMiddlware, thunk),
     ),
 );
-
-store.dispatch({ type: ActionType.INSERT_CELL_AFTER, payload: { id: '', type: CellType.Code } });
-store.dispatch({ type: ActionType.INSERT_CELL_AFTER, payload: { id: '', type: CellType.Text } });
-store.dispatch({ type: ActionType.INSERT_CELL_AFTER, payload: { id: '', type: CellType.Text } });
-store.dispatch({ type: ActionType.INSERT_CELL_AFTER, payload: { id: '', type: CellType.Code } });

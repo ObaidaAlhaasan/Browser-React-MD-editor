@@ -6,6 +6,8 @@ import { createCellsRouter } from './routes/cells'
 export const serve = (port: number, fileName: string, dir: string, useProxy: boolean = false) => {
     const app = express();
 
+    app.use(createCellsRouter(fileName, dir));
+
     if (useProxy) {
         app.use(createProxyMiddleware({
             target: 'http://localhost:3000',
@@ -19,7 +21,6 @@ export const serve = (port: number, fileName: string, dir: string, useProxy: boo
     }
 
 
-    app.use(createCellsRouter(fileName, dir));
     return new Promise<void>((resolve, reject) => {
         app.listen(port, resolve).on('error', reject);
     })

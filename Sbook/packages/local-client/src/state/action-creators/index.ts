@@ -38,7 +38,7 @@ export const insertCellAfter = ({ id, type }: { id: string, type: CellType }): I
     }
 })
 
-export const fetchCells = ({ type }: { type: CellType }) => {
+export const fetchCells = () => {
 
     return async (dispatch: Dispatch<Action>) => {
         dispatch({ type: ActionType.FETCH_CELLS });
@@ -63,14 +63,13 @@ export const createBundle = ({ cellId, input }: { cellId: string, input: string 
     }
 };
 
-export const SaveCells = () => {
+export const saveCells = () => {
     return async (dispatch: Dispatch<Action>, getState: () => RootState) => {
         const { cells: { data, order } } = getState();
         const cells = order.map(id => data[id]);
 
         try {
-            const response = await axios.post("/cells", { cells });
-            console.log(response);
+            await axios.post("/cells", { cells });
 
         } catch (error: any) {
             dispatch({
@@ -78,6 +77,5 @@ export const SaveCells = () => {
                 payload: error.message
             })
         }
-
     };
 }
