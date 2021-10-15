@@ -39,11 +39,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createCellsRouter = void 0;
+exports.createCellsRouter = exports.CellType = void 0;
 var express_1 = __importDefault(require("express"));
 var promises_1 = __importDefault(require("fs/promises"));
 var path_1 = __importDefault(require("path"));
 var router = express_1.default.Router();
+var CellType;
+(function (CellType) {
+    CellType["Code"] = "Code";
+    CellType["Text"] = "Text";
+})(CellType = exports.CellType || (exports.CellType = {}));
+;
+;
 var createCellsRouter = function (fileName, dirName) {
     var fullPath = path_1.default.join(dirName, fileName);
     router.use(express_1.default.json());

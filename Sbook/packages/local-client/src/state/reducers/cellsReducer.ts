@@ -50,8 +50,31 @@ const reducer = produce((state: CellState = initialState, action: Action): CellS
             if (index < 0)
                 state.order.unshift(cell.id);
             else
-                state.order.splice(index +1, 0, cell.id);
+                state.order.splice(index + 1, 0, cell.id);
+            return state;
 
+        case ActionType.FETCH_CELLS:
+            state.loading = true;
+            state.error = null;
+
+            return state;
+
+        case ActionType.FETCH_CELLS_COMPLETE:
+            state.order = action.payload.cells.map(x => x.id);
+            state.data = action.payload.cells.reduce((acc, cell) => {
+                acc[cell.id] = cell;
+                return acc;
+            }, {} as CellState["data"]);
+
+            return state;
+
+        case ActionType.SAVE_CELLS_ERROR:
+            state.error = action.payload;
+            return state;
+
+        case ActionType.FETCH_CELLS_ERROR:
+            state.loading = false;
+            state.error = action.payload.msgAsString;
             return state;
 
         default:

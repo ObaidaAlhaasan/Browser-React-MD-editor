@@ -5,11 +5,12 @@ import path from 'path';
 const router = express.Router();
 
 
-interface Cell {
-    id: string;
-    content: string;
-    type: 'Code' | 'Text';
-}
+export enum CellType {
+    Code = "Code",
+    Text = "Text"
+};
+
+export interface Cell { id: string; type: CellType, content: string };
 
 export const createCellsRouter = (fileName: string, dirName: string) => {
     const fullPath = path.join(dirName, fileName);
