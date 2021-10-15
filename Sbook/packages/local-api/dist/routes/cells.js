@@ -39,41 +39,57 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var commander_1 = require("commander");
-var local_api_1 = require("local-api");
+exports.createCellsRouter = void 0;
+var express_1 = __importDefault(require("express"));
+var promises_1 = __importDefault(require("fs/promises"));
 var path_1 = __importDefault(require("path"));
-var isProduction = process.env.NODE_ENV === "production";
-var ServeCommand = new commander_1.Command()
-    .command("serve [fileName]")
-    .description("Open a file to edit")
-    .option("-p, --port <number>", "port to run server on", "4005")
-    .action(function (fileName, options) {
-    if (fileName === void 0) { fileName = "notebook.js"; }
-    return __awaiter(void 0, void 0, void 0, function () {
-        var dir, e_1;
+var router = express_1.default.Router();
+var createCellsRouter = function (fileName, dirName) {
+    var fullPath = path_1.default.join(dirName, fileName);
+    router.use(express_1.default.json());
+    router.get("/cells", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+        var cells, error_1, defaultCells;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    dir = path_1.default.join(process.cwd(), path_1.default.dirname(fileName));
+                    _a.trys.push([0, 2, , 5]);
+                    return [4 /*yield*/, promises_1.default.readFile(fullPath, 'utf-8')];
+                case 1:
+                    cells = _a.sent();
+                    return [2 /*return*/, res.json({ isSuccessful: true, cells: JSON.parse(cells), msgAsString: 'Okay' })];
+                case 2:
+                    error_1 = _a.sent();
+                    if (!(error_1.code === "ENOENT")) return [3 /*break*/, 4];
+                    defaultCells = [];
+                    return [4 /*yield*/, promises_1.default.writeFile(fullPath, JSON.stringify(defaultCells), 'utf-8')];
+                case 3:
+                    _a.sent();
+                    return [2 /*return*/, res.json({ isSuccessful: true, cells: defaultCells, msgAsString: 'Okay a default cells has been created!' })];
+                case 4: return [2 /*return*/, res.json({ isSuccessful: false, msgAsString: error_1.message })];
+                case 5: return [2 /*return*/];
+            }
+        });
+    }); });
+    router.post("/cells", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+        var cells, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    cells = req.body.cells;
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, (0, local_api_1.serve)(options.port, path_1.default.basename(fileName), dir, !isProduction)];
+                    return [4 /*yield*/, promises_1.default.writeFile(fullPath, JSON.stringify(cells))];
                 case 2:
                     _a.sent();
-                    console.log("Opened " + fileName + ". Navigate to http://localhost:" + options.port + " to edit the file.");
                     return [3 /*break*/, 4];
                 case 3:
-                    e_1 = _a.sent();
-                    if (e_1.code === "EADDRINUSE")
-                        console.error("Port is in use try to run on a different port");
-                    else
-                        console.log(e_1.message);
-                    process.exit(1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    error_2 = _a.sent();
+                    return [2 /*return*/, res.json({ isSuccessful: false, msgAsString: error_2.message })];
+                case 4: return [2 /*return*/, res.json({ isSuccessful: true, msgAsString: 'Okay' })];
             }
         });
-    });
-});
-exports.default = ServeCommand;
+    }); });
+    return router;
+};
+exports.createCellsRouter = createCellsRouter;

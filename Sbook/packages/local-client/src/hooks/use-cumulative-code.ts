@@ -6,7 +6,7 @@ const Show = `var Show = (val) => {
 
     let renderedVal = val;
     if (val.$$typeof && val.props) {
-        ReactDOM.render(val, root)
+        _ReactDOM.render(val, root)
         return;
     }
     if (typeof val === "object") {
